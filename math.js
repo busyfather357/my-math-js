@@ -1,5 +1,4 @@
-  <!-- 4. JavaScript：初始化與互動邏輯 (含題庫機制) -->
-  <script>
+
     document.addEventListener('DOMContentLoaded', () => {
       let min = 1;
       let max = 20;
@@ -126,4 +125,5 @@
       // 啟動第一輪題目
       applySettings();
     });
-  </script>
+
+
