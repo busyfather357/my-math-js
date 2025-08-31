@@ -1,4 +1,4 @@
-<!-- math.html：數學運算與出題邏輯（純 JS） -->
+  <!-- 4. JavaScript：初始化與互動邏輯 (含題庫機制) -->
   <script>
     document.addEventListener('DOMContentLoaded', () => {
       let min = 1;
