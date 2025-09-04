@@ -1,0 +1,148 @@
+<html lang="zh-TW">
+<head>
+  <meta charset="UTF-8"></meta>
+  <!-- 1. 防止 iOS 自動放大 numeric input -->
+  <meta content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" name="viewport"></meta>
+
+  <!-- 2. CSS：設定面板與數學練習 Widget -->
+  <style>
+    html, body, #math-widget {
+      -webkit-text-size-adjust: 100% !important;
+    }
+
+    /* 設定面板 */
+    #math-widget-settings {
+      background: #ffffff !important;
+      padding: 1rem !important;
+      border: 1px solid #ddd !important;
+      border-radius: 8px !important;
+      max-width: 320px;
+      margin-bottom: 1rem;
+    }
+    #math-widget-settings h3 {
+      margin: 0 0 0.5rem 0;
+      font-size: 1.1rem !important;
+      color: #333 !important;
+    }
+    #math-widget-settings .setting-row {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.5rem;
+      margin-bottom: 0.5rem;
+    }
+    #math-widget-settings label {
+      font-size: 0.95rem !important;
+      color: #333 !important;
+    }
+    #math-widget-settings input[type="number"] {
+      width: 4rem !important;
+      margin-left: 0.25rem;
+    }
+    #math-widget-settings .op-checkbox {
+      margin-right: 0.25rem;
+    }
+    #math-widget-settings button {
+      padding: 0.5rem 1rem !important;
+      background: #007acc !important;
+      color: #fff !important;
+      border: none !important;
+      border-radius: 4px !important;
+      cursor: pointer !important;
+    }
+    #math-widget-settings button:hover {
+      background: #005fa3 !important;
+    }
+
+    /* 數學練習 Widget (初始化為隱藏) */
+    #math-widget {
+      background: #f5f5f5 !important;
+      padding: 1rem !important;
+      max-width: 320px;
+      border-radius: 8px;
+      box-shadow: 0 2px 6px rgba(0,0,0,0.1);
+      visibility: hidden;
+    }
+    #math-widget .question {
+      color: #333333 !important;
+      font-size: 1.2rem !important;
+      margin-bottom: 0.5rem !important;
+    }
+    #math-widget .question::first-letter {
+      color: inherit !important;
+      font-size: inherit !important;
+      margin: 0 !important;
+      float: none !important;
+    }
+    #math-widget input {
+      width: 100% !important;
+      padding: 0.5rem !important;
+      font-size: 16px !important; /* iOS zoom fix */
+      color: #333333 !important;
+      background: #ffffff !important;
+      border: 1px solid #cccccc !important;
+      border-radius: 4px !important;
+      box-sizing: border-box !important;
+      margin-bottom: 0.5rem !important;
+    }
+    /* 去除數字輸入框的 spin 按鈕 */
+    #math-widget input[type="number"]::-webkit-inner-spin-button,
+    #math-widget input[type="number"]::-webkit-outer-spin-button {
+      -webkit-appearance: none !important;
+      margin: 0 !important;
+    }
+    #math-widget button {
+      width: 100% !important;
+      padding: 0.6rem !important;
+      font-size: 1rem !important;
+      color: #ffffff !important;
+      background: #007acc !important;
+      border: none !important;
+      border-radius: 4px !important;
+      cursor: pointer !important;
+    }
+    #math-widget button:hover {
+      background: #005fa3 !important;
+    }
+    #math-widget .feedback {
+      margin-top: 0.5rem !important;
+      font-size: 1rem !important;
+    }
+    #math-widget .score {
+      margin-top: 0.5rem !important;
+      font-size: 0.9rem !important;
+      color: #555555 !important;
+    }
+  </style>
+</head>
+<body>
+
+  <!-- 3. HTML：設定面板 + Widget -->
+  <div id="math-widget-settings">
+    <h3>設定題目範圍與運算符號</h3>
+    <div class="setting-row">
+      <label>最小數值：
+        <input id="minInput" type="number" value="2" />
+      </label>
+      <label>最大數值：
+        <input id="maxInput" type="number" value="9" />
+      </label>
+    </div>
+    <div class="setting-row">
+      <label><input class="op-checkbox" data-op="+" type="checkbox" /> 加法 (+)</label>
+      <label><input class="op-checkbox" data-op="-" type="checkbox" /> 減法 (−)</label>
+      <label><input checked="" class="op-checkbox" data-op="*" type="checkbox" /> 乘法 (×)</label>
+      <label><input class="op-checkbox" data-op="/" type="checkbox" /> 除法 (÷)</label>
+    </div>
+    <button id="applySettings">套用設定</button>
+  </div>
+
+  <div id="math-widget">
+    <div class="question">載入中…</div>
+    <input id="answer" inputmode="decimal" placeholder="輸入答案" step="any" type="number" />
+    <button id="submitBtn">送出</button>
+    <div aria-live="polite" class="feedback"></div>
+    <div class="score">0 / 0 題，正確率 0%</div>
+  </div>
+  <script src="https://busyfather357.github.io/my-math-js/math.js"></script>
+</body>
+</html>
