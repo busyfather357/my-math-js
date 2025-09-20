@@ -27,6 +27,7 @@ document.addEventListener('DOMContentLoaded', () => {
     const maxInput = document.getElementById('maxInput');
     const opCheckboxes = document.querySelectorAll('.op-checkbox');
     const applySettingsBtn = document.getElementById('applySettings');
+    const timerToggle = document.getElementById('timerToggle');
 
     // 題庫與洗牌函式
     let questionPool = [];
@@ -81,11 +82,26 @@ document.addEventListener('DOMContentLoaded', () => {
 
         resetScore();
         generatePool();
+        // 【修改】套用新設定時，也更新計時器的可見狀態
+        updateTimerState(); 
         newQuestion();
+    }
+    // 【新增】一個函數用來處理計時器的顯示狀態與行為
+    function updateTimerState() {
+        if (timerToggle.checked) {
+            timerDisplay.style.display = 'block'; // 或者 'inline', 'flex' 等，依你的 CSS 設計
+        } else {
+            timerDisplay.style.display = 'none';
+            clearInterval(timer); // 如果關掉開關，清除正在跑的計時器
+        }
     }
     
     // --- Timer Functions ---
     function startTimer() {
+        // 【修改】如果開關是關閉的，直接返回，不啟動計時器
+        if (!timerToggle.checked) {
+            return;
+        }
         timeLeft = TIME_LIMIT;
         timerDisplay.textContent = timeLeft;
         timerDisplay.style.color = 'black'; // Reset color
@@ -165,6 +181,8 @@ document.addEventListener('DOMContentLoaded', () => {
             newQuestion();
         }, 800);
     }
+    // 【新增】為計時器開關添加事件監聽
+    timerToggle.addEventListener('change', updateTimerState);
 
     applySettingsBtn.addEventListener('click', applySettings);
     submitBtn.addEventListener('click', checkAnswer);
@@ -175,3 +193,4 @@ document.addEventListener('DOMContentLoaded', () => {
     // 啟動第一輪題目
     applySettings();
 });
+
